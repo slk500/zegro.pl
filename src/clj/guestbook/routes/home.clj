@@ -17,14 +17,6 @@
 (defn about-page [request]
   (layout/render request "about.html"))
 
-(defn home-routes []
-  [""
-   {:middleware [middleware/wrap-csrf
-                 middleware/wrap-formats]}
-   ["/" {:get home-page
-         :post save-message!}]
-   ["/about" {:get about-page}]])
-
 (def message-schema
   [[:name
     st/required
@@ -39,7 +31,7 @@
 (defn validate-message [params]
   (first (st/validate params message-schema)))
 
-(defn save-message! [{:keys [params]}]
+(defn save [{:keys [params]}]
   (if-let [errors (validate-message params)]
     (-> (response/found "/")
         (assoc :flash (assoc params :errors errors)))
@@ -47,3 +39,11 @@
       (db/save-message!
        (assoc params :timestamp (java.util.Date.)))
       (response/found "/"))))
+
+(defn home-routes []
+  [""
+   {:middleware [middleware/wrap-csrf
+                 middleware/wrap-formats]}
+   ["/" {:get home-page
+         :post save}]
+   ["/about" {:get about-page}]])

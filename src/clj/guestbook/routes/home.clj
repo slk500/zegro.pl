@@ -22,7 +22,7 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page
-         :post db/save-message!}]
+         :post save-message!}]
    ["/about" {:get about-page}]])
 
 (def message-schema

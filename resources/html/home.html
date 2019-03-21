@@ -3,7 +3,7 @@
 <div class="content">
   <div class="columns">
     <div class="column">
-      <h3>Messages</h3>
+      <h3>Oferty</h3>
       <ul class="messages">
         {% for item in messages %}
         <li>
@@ -20,20 +20,24 @@
       <form method="POST" action="/">
         {% csrf-field %}
         <p>
-          Name:
+          Nazwa produktu:
           <input class="input" type="text" name="name" value="{{name}}" />
         </p>
         {% if errors.name %}
         <div class="notification is-danger">{{errors.name|join}}</div>
         {% endif %}
         <p>
-          Message:
+          Opis:
           <textarea class="textarea" name="message">{{message}}</textarea>
         </p>
         {% if errors.message %}
         <div class="notification is-danger">{{errors.message|join}}</div>
         {% endif %}
-        <input type="submit" class="button is-primary" value="comment" />
+        <p>
+          Cena:
+          <input class="input" type="text" name="price" value="{{price}}" />
+        </p>
+	 <input type="submit" class="button is-primary" value="comment" />
       </form>
     </div>
   </div>

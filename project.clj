@@ -28,7 +28,8 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
-                 [selmer "1.12.6"]]
+                 [selmer "1.12.6"]
+                 [org.clojure/clojurescript "1.7.228" :scope "provided"]]
 
   :min-lein-version "2.0.0"
   
@@ -37,9 +38,28 @@
   :resource-paths ["resources"]
   :target-path "target/%s/"
   :main ^:skip-aot guestbook.core
-
-  :plugins [[lein-immutant "2.1.0"]]
-
+  :plugins [[lein-environ "1.0.1"]
+            [migratus-lein "0.2.0"]
+            [lein-cljsbuild "1.1.1"]
+            [lein-immutant "2.1.0"]]
+  :resource-paths ["resources" "target/cljsbuild"]
+  :cljsbuild
+  {:builds {:app {:source-paths ["src/cljs"]
+                  :compiler {:output-to
+                             "target/cljsbuild/public/js/app.js"
+                             :output-dir
+                             "target/cljsbuild/public/js/out"
+                             :main "guestbook.core"
+                             :asset-path "/js/out"
+                             :optimizations :none
+                             :source-map true
+                             :pretty-print true}}}}
+  :clean-targets
+  ^{:protect false}
+  [:target-path
+   [:cljsbuild :builds :app :compiler :output-dir]
+   [:cljsbuild :builds :app :compiler :output-to]]
+  
   :profiles
   {:uberjar {:omit-source true
              :aot :all

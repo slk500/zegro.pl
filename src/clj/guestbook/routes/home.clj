@@ -11,21 +11,24 @@
   (layout/render
    request
    "home.html"
-   (merge {:messages (db/get-messages)}
-          (select-keys flash [:name :message :errors]))))
+   (merge {:items (db/get-messages)}
+          (select-keys flash [:name :item :errors]))))
 
 (defn about-page [request]
   (layout/render request "about.html"))
+
+(defn offer-form [request]
+  (layout/render request "offer-form.html"))
 
 (def message-schema
   [[:name
     st/required
     st/string]
 
-   [:message
+   [:description
     st/required
     st/string
-    {:message "message must contain at least 10 characters"
+    {:description "message must contain at least 10 characters"
      :validate #(> (count %) 9)}]])
 
 (defn validate-message [params]
@@ -44,6 +47,8 @@
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
-   ["/" {:get home-page
-         :post save}]
+   ["/" {:get home-page}]
+   ["/oferty/dodaj" {:get offer-form
+                    :post save}]
    ["/about" {:get about-page}]])
+

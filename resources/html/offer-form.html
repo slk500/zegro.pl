@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="columns">
+    <div class="column">
+      <form method="POST" action="/oferty/dodaj">
+        {% csrf-field %}
+        <p>
+          Nazwa produktu:
+          <input class="input" type="text" name="name" value="{{name}}" />
+        </p>
+        {% if errors.name %}
+        <div class="notification is-danger">{{errors.name|join}}</div>
+        {% endif %}
+        <p>
+          Opis:
+          <textarea class="textarea" name="description">{{description}}</textarea>
+        </p>
+        {% if errors.message %}
+        <div class="notification is-danger">{{errors.message|join}}</div>
+        {% endif %}
+        <p>
+          Cena (zł):
+          <input class="input" type="text" name="price" value="{{price}}" />
+        </p>
+	 <input type="submit" class="button is-primary" value="Dodaj" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,21 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="content">
-  <div class="columns">
-    <div class="column">
-      <h3>Oferty Kupna</h3>
-      <ul class="messages">
-        {% for item in items %}
-        <li>
-          <p>{{item.name}}</p>
-          <p>{{item.description}}</p>
-	  <p>{{item.price}} zł</p>
-          <time>{{item.timestamp|date:"yyyy-MM-dd HH:mm"}}</time>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</div>
+<div id='content'></div>
 {% endblock %}
 

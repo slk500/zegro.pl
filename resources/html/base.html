@@ -40,17 +40,27 @@
           </div>
       </section>
 
+      <script type="text/javascript">
+	var context = "{{servlet-context}}";
+      </script>
+      {% script "/js/app.js" %}
+      {% block page-scripts %}
+      {% endblock %}
+
+
+
+      
     <!-- scripts -->
-    <script type="text/javascript">
-      (function() {
-        var burger = document.querySelector('.burger');
-        var nav = document.querySelector('#'+burger.dataset.target);
-        burger.addEventListener('click', function(){
-          burger.classList.toggle('is-active');
-          nav.classList.toggle('is-active');
-        });
-      })();
-    </script>
+    <!-- <script type="text/javascript"> -->
+    <!--   (function() { -->
+    <!--     var burger = document.querySelector('.burger'); -->
+    <!--     var nav = document.querySelector('#'+burger.dataset.target); -->
+    <!--     burger.addEventListener('click', function(){ -->
+    <!--       burger.classList.toggle('is-active'); -->
+    <!--       nav.classList.toggle('is-active'); -->
+    <!--     }); -->
+    <!--   })(); -->
+    <!-- </script> -->
 
     
     {% block page-scripts %}

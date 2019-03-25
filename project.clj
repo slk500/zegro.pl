@@ -29,7 +29,9 @@
                  [ring/ring-core "1.7.1"]
                  [ring/ring-defaults "0.3.2"]
                  [selmer "1.12.6"]
-                 [org.clojure/clojurescript "1.10.520" :scope "provided"]]
+                 [org.clojure/clojurescript "1.10.520" :scope "provided"]
+                 [reagent "0.5.1"]
+                 [cljs-ajax "0.5.2"]]
 
   :min-lein-version "2.0.0"
   

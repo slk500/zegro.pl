@@ -5,7 +5,8 @@
     [clojure.java.io :as io]
     [guestbook.middleware :as middleware]
     [ring.util.http-response :as response]
-    [struct.core :as st]))
+    [struct.core :as st]
+    [ring.util.response :refer [response status]]))
 
 (defn home-page [{:keys [flash] :as request}]
   (layout/render
@@ -34,21 +35,18 @@
 (defn validate-message [params]
   (first (st/validate params message-schema)))
 
-(defn save [{:keys [params]}]
+(defn save-message! [{:keys [params]}]
   (if-let [errors (validate-message params)]
-    (-> (response/found "/")
-        (assoc :flash (assoc params :errors errors)))
+    (-> {:errors errors} response (status 400))
     (do
       (db/save-message!
        (assoc params :timestamp (java.util.Date.)))
-      (response/found "/"))))
+      (response {:status :ok}))))
 
 (defn home-routes []
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/" {:get home-page}]
-   ["/oferty/dodaj" {:get offer-form
-                    :post save}]
+   ["/oferty/dodaj" {:post save-message!}]
    ["/about" {:get about-page}]])
-

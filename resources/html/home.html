@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<input id="token" type="hidden" value="{{csrf-token}}"></input>
-<div id='content'></div>
+ <div id="offer-form"></div>
+
+ <!-- <div class="row">
+      <div class="span12">
+      <ul class="items" >
+      {% for item in items %}
+      <li>
+      <p><strong> {{item.name}} </strong></p>
+      <p>{{item.description}}</p>
+      <p> {{item.price}} zł </p> 
+      <time>{{item.timestamp|date:"yyyy-MM-dd HH:mm"}}</time>
+      </li>
+      {% endfor %}
+      </ul>
+      </div>
+      </div>  -->
+
+
+ 
 {% endblock %}
 

@@ -11,14 +11,12 @@
 (defn home-page [{:keys [flash] :as request}]
   (layout/render
    request
-   "home.html"
-   (merge {:items (db/get-messages)}
-          (select-keys flash [:name :item :errors]))))
+   "home.html"))
 
 (defn about-page [request]
   (layout/render request "about.html"))
 
-(defn offer-form [request]
+(defn add-offer [request]
   (layout/render request "offer-form.html"))
 
 (def message-schema
@@ -43,10 +41,21 @@
        (assoc params :timestamp (java.util.Date.)))
       (response {:status :ok}))))
 
+(defn wrap-nocache [handler]
+  (fn [request]
+    (-> request
+        handler
+        (assoc-in [:headers "Cache-control:"] "no-cache"))))
+
 (defn home-routes []
   [""
    {:middleware [middleware/wrap-csrf
-                 middleware/wrap-formats]}
+                 middleware/wrap-formats
+                 wrap-nocache]}
    ["/" {:get home-page}]
-   ["/oferty/dodaj" {:post save-message!}]
-   ["/about" {:get about-page}]])
+   ["/oferty/dodaj" {:get add-offer}]
+   ["/api/offers" {:get db/get-messages
+                   :post save-message!}]
+   ["/about" {:get about-page}]
+   ["/testowe" {:get (fn [request] {:status 200 :body (keys request})}]
+   ])

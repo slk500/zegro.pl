@@ -2,12 +2,14 @@
 {% block content %}
 
 <input id="token" type="hidden" value="{{csrf-token}}"></input>
-<div id='content'></div>
+<div class="columns">
+    <div class="column">
+	<div id='offer-form' ></div>
+    </div>
+</div>
 
 
-<!-- <div class="columns">
-     <div class="column">
-     <form method="POST" action="/oferty/dodaj">
+<!-- <form method="POST" action="/oferty/dodaj">
      {% csrf-field %}
      <p>
      Nazwa produktu:
@@ -28,7 +30,7 @@
      <input class="input" type="text" name="price" value="{{price}}" />
      </p>
      <input type="submit" class="button is-primary" value="Dodaj" />
-     </form>
-     </div> -->
-  </div>
+     </form> -->
+
+
 {% endblock %}

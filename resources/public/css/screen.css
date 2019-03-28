@@ -37,7 +37,7 @@ ul {
 	list-style: none;
 }
 
-ul.messages li {
+ul.items li {
 	position: relative;
 	font-size: 16px;
 	padding: 5px;
@@ -53,11 +53,11 @@ li time {
 	padding-bottom: 20px;
 }
 
-/* form, .error { */
-/* 	padding: 30px; */
-/* 	margin-bottom: 50px; */
-/* 	position: relative; */
-/* } */
+form, .error {
+	padding: 30px;
+	margin-bottom: 50px;
+	position: relative;
+}
 
 .content {
     background: white;
